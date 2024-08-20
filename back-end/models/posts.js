@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Posts extends Model {
     /**
@@ -13,50 +11,53 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Posts.init({
-    title: {
-      type: DataTypes.STRING(200),
-      allowNull:false,
-      validate: {
-       len: {
-         args:[20],
-         msg: 'Title minimal 20 karakter'
-       }
-      }
-     },
-    content: {
-      type: DataTypes.TEXT,
-      allowNull:false,
-      validate: {
-       len: {
-         args:[200],
-         msg: 'Content minimal 200 karakter'
-       }
-      }
-     },
-    category: {
-      type: DataTypes.STRING(100),
-      allowNull:false,
-      validate: {
-       len: {
-         args:[3],
-         msg: 'Category minimal 3 karakter'
-       }
-      }
-     },
-    status: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-      validate: {
-        isIn: {
-          args: [['publish', 'draft', 'trash']],
-          msg: "Status harus 'publish', 'draft', or 'trash'"
-        }
-      }
+  Posts.init(
+    {
+      title: {
+        type: DataTypes.STRING(200),
+        allowNull: false,
+        validate: {
+          len: {
+            args: [20],
+            msg: "Title minimal 20 karakter",
+          },
+        },
+      },
+      content: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          len: {
+            args: [200],
+            msg: "Content minimal 200 karakter",
+          },
+        },
+      },
+      category: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        validate: {
+          len: {
+            args: [3],
+            msg: "Category minimal 3 karakter",
+          },
+        },
+      },
+      status: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        validate: {
+          isIn: {
+            args: [["publish", "draft", "thrash"]],
+            msg: "Status harus 'publish', 'draft', or 'thrash'",
+          },
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: "Posts",
     }
-  }, {
-    sequelize,
-    modelName: 'Posts',
-  });
+  );
   return Posts;
 };

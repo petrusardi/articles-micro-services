@@ -4,7 +4,7 @@ const article = express.Router();
 
 article.post("/", Controller.addArticle);
 article.get("/:id", Controller.detailArticle);
-// article.put("/:id", Controller.updateArticle);
+article.put("/:id", Controller.updateArticle);
 // article.delete("/:id", Controller.deleteArticle);
 // article.get("/:limit/:offset", Controller.getArticles);
 

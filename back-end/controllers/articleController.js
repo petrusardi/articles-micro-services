@@ -20,6 +20,18 @@ class Controller {
       res.status(404).json({ error: "Article not found" });
     }
   }
+  static async updateArticle(req, res) {
+    try {
+      const article = await Posts.findByPk(req.params.id);
+      if (!article) {
+        throw { error: "Article not found" };
+      }
+      await article.update(req.body);
+      res.status(200).json(article);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = Controller;
