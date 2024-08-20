@@ -1,6 +1,14 @@
 const { Posts } = require("../models");
 
 class Controller {
+  static async allArticle(req, res) {
+    try {
+      const post = await Posts.findAll();
+      res.status(200).json(post);
+    } catch (error) {
+      res.status(404).json({ error: error.message });
+    }
+  }
   static async addArticle(req, res) {
     try {
       const post = await Posts.create(req.body);
