@@ -32,6 +32,37 @@ class Controller {
       res.status(400).json({ error: error.message });
     }
   }
+  static async deleteArticle(req, res) {
+    try {
+      const article = await Posts.findByPk(req.params.id);
+      if (!article) {
+        throw { name: "error not found" };
+      }
+      await article.destroy();
+      res.status(200).json({ message: `Article success to delete` });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+  static async getArticles(req, res) {
+    try {
+      const limit = parseInt(req.params.limit, 10);
+      const offset = parseInt(req.params.offset, 10);
+
+      if (isNaN(limit) || isNaN(offset) || limit <= 0 || offset < 0) {
+        return res.status(400).json({ error: "Invalid limit or offset" });
+      }
+
+      const articles = await Posts.findAll({
+        limit: limit,
+        offset: offset,
+      });
+
+      res.json(articles);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = Controller;
